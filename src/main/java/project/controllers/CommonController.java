@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import project.commons.excetions.CommonException;
+import project.commons.exceptions.CommonException;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
