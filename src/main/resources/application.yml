@@ -17,7 +17,7 @@ spring:
   # 파일 업로드 설정
   servlet:
     multipart:
-      maxFiledSize: 20MB
+      maxFileSize: 20MB
       maxRequestSize: 40MB
 
   # 정적 자원 설정(CSS, JS, 이미지)
