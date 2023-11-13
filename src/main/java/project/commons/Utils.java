@@ -45,6 +45,6 @@ public class Utils {
     }
 
     public String tpl(String tplPath) {
-        return String.format("%s/" + tplPath, isMobile()?"mobile":"front");
+        return String.format("%s/" + tplPath, isMobile() ? "mobile" : "front");
     }
 }
