@@ -25,7 +25,7 @@ public class Utils {
 
     public static String getMessage(String code, String bundleType) {
         bundleType = Objects.requireNonNullElse(bundleType, "validation");
-        ResourceBundle bundle = bundleType.equals("error")? errorsBundle:validationsBundle;
+        ResourceBundle bundle = bundleType.equals("error") ? errorsBundle:validationsBundle;
         try {
             return bundle.getString(code);
         } catch (Exception e) {
