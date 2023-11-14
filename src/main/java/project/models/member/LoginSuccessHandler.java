@@ -18,6 +18,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         Utils.loginInit(session);
 
+        MemberInfo memberInfo = (MemberInfo)authentication.getPrincipal();
+        System.out.println(memberInfo);
+
         /* 로그인 성공시 페이지 이동
          * 요청 데이터 redirectURL 값이 있으면 이동, 없으면 메인 페이지(/)
          *
