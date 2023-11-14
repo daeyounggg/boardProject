@@ -30,6 +30,9 @@ public class MvcConfig implements WebMvcConfigurer {
 
         registry.addViewController("/mypage")
                 .setViewName("front/main/index");
+
+        registry.addViewController("/admin")
+                .setViewName("front/main/index");
     }
 
     @Override
