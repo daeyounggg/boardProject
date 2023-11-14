@@ -1,5 +1,6 @@
 package project.configs;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -48,6 +49,19 @@ public class SecurityConfig {
                     .requestMatchers("/admin/**").hasAuthority("ADMIN") // 관리자 권한만 접근
                     .anyRequest().permitAll(); // 나머지 페이지는 권한 필요 X
         });
+
+        http.exceptionHandling(c -> {
+           c.authenticationEntryPoint((req, resp, e) ->{
+               String URI = req.getRequestURI();
+               if(URI.indexOf("/admin") != -1){ // 관리자 페이지 - 401 응답 코드
+                   resp.sendError(HttpServletResponse.SC_UNAUTHORIZED,"NOT AUTHORIZED");
+               } else { // 회원전용 페이지(예 - /mypage ) -> 로그인 페이지 이동
+                   String url = req.getContextPath() + "/member/login";
+                   resp.sendRedirect(url);
+               }
+           });
+        });
+
         /* 인가 설정 - 접근 통제 E */
 
         return http.build();
