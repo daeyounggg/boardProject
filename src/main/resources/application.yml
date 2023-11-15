@@ -1,11 +1,10 @@
 server:
   port: 3000
 
-
 spring:
   # 프로필 설정
   profiles:
-      active: dev
+    active: dev
 
   # 데이터베이스 설정
   datasource:
@@ -14,10 +13,23 @@ spring:
     username: PROJECT
     password: _aA123456
 
+  # JPA 설정
+  jpa:
+    properties:
+      hibernate:
+        # 실행되는 쿼리를 콘솔에 출력
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.OracleDialect
+    hibernate:
+      ddlAuto: create
+
+
   # 파일 업로드 설정
   servlet:
     multipart:
-      maxFiledSize: 20MB
+      maxFileSize: 20MB
       maxRequestSize: 40MB
 
   # 정적 자원 설정(CSS, JS, 이미지)
@@ -34,6 +46,9 @@ spring:
     cache: false
     prefix: file:src/main/resources/templates/
 
+  flyway:
+    enabled: true
+
 file:
   upload:
     path: C:/uploads/
@@ -43,5 +58,7 @@ file:
 logging:
   level:
     org:
-      springframework:
-        jdbc: trace
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
