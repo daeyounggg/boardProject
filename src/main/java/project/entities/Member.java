@@ -1,12 +1,14 @@
 package project.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 import project.commons.constants.MemberType;
 
 import java.time.LocalDateTime;
 
 @Data
+@Entity
 public class Member {
 
     @Id
