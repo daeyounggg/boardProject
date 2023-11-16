@@ -5,15 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
 
 @Data @Builder
 @Entity
 @NoArgsConstructor @AllArgsConstructor
-public class BoardData {
+public class BoardData extends Base {
     @Id
     @GeneratedValue
     private Long seq;
@@ -25,11 +21,4 @@ public class BoardData {
     @Column(nullable = false)
     private String content;
 
-    @Column(updatable = false)
-    @CreationTimestamp
-    private LocalDateTime regDt;
-
-    @Column(insertable = false)
-    @UpdateTimestamp
-    private LocalDateTime modDt;
 }

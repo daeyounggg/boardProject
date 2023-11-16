@@ -5,11 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import project.commons.constants.MemberType;
-
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -20,7 +16,7 @@ import java.time.LocalDateTime;
     @Index(name="idx_member_mobile", columnList = "mobile")
 })
 
-public class Member {
+public class Member extends Base{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userNo;
@@ -40,14 +36,6 @@ public class Member {
     @Column(length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
     private MemberType mtype = MemberType.USER;
-
-    @Column(updatable = false)
-    @CreationTimestamp
-    private LocalDateTime regDt;
-
-    @Column(insertable = false)
-    @UpdateTimestamp
-    private LocalDateTime modDt;
 
     /*
     @Temporal()
