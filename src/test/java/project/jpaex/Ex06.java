@@ -61,8 +61,8 @@ public class Ex06 {
     @Test
     void test1() {
         BoardData data = boardDataRepository.findById(1L).orElse(null);
-        Member member = data.getMember();
-        System.out.println(member);
+        //Member member = data.getMember();
+        //System.out.println(member);
 
     }
 
