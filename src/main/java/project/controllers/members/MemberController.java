@@ -92,7 +92,6 @@ public class MemberController {
 
         memberRepository.saveAndFlush(member);
 
-
         List<BoardData> items = new ArrayList<>();
         for (int i = 0; i <= 10; i++) {
             BoardData item = BoardData.builder()
@@ -107,4 +106,14 @@ public class MemberController {
         boardDataRepository.saveAllAndFlush(items);
     }
 
+    @ResponseBody
+    @GetMapping("/info3")
+    public void info3(){
+        List<BoardData> items = boardDataRepository.findAll();
+        for (BoardData item : items){
+            Member member = item.getMember();
+            String email = member.getEmail();
+            System.out.println(email);
+        }
+    }
 }
