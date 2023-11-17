@@ -25,7 +25,6 @@ spring:
     hibernate:
       ddlAuto: create
 
-
   # 파일 업로드 설정
   servlet:
     multipart:
