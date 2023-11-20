@@ -51,24 +51,20 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
-
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
-// queryDSL 추가 : QueryDSL 빌드 옵션
 def querydslDir = "$buildDir/generated/querydsl"
 
-querydsl {
-	jpa = true
-	querydslSourcesDir = querydslDir
-}
 sourceSets {
-	main.java.srcDir querydslDir
+	main.java.srcDirs += [ querydslDir ]
 }
-configurations {
-	querydsl.extendsFrom compileClasspath
+
+tasks.withType(JavaCompile) {
+	options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
 }
-compileQuerydsl {
-	options.annotationProcessorPath = configurations.querydsl
+
+clean.doLast {
+	file(querydslDir).deleteDir()
 }
