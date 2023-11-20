@@ -30,5 +30,4 @@ public class BoardListService {
         return items;
 
     }
-
 }

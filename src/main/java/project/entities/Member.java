@@ -1,11 +1,11 @@
 package project.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import project.commons.constants.MemberType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -37,5 +37,8 @@ public class Member extends Base{
     @Enumerated(EnumType.STRING)
     private MemberType mtype = MemberType.USER;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<BoardData> items = new ArrayList<>();
 
 }

@@ -86,4 +86,15 @@ public class Ex02 {
         List<BoardData> items = boardDataRepository.findBySubjectContaining("목");
 
     }
+
+    @Test
+    void test5(){
+        Member member = memberRepository.findByEmail("user01@test.org").orElse(null);
+        List<BoardData> items = member.getItems();
+        items.stream().forEach(System.out::println);
+
+        memberRepository.delete(member);
+        memberRepository.flush();
+
+    }
 }

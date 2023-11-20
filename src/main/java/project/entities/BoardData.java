@@ -25,4 +25,5 @@ public class BoardData extends BaseMember {
     @JoinColumn(name = "userNo")
     private Member member;
 
+
 }
