@@ -11,7 +11,7 @@ import project.commons.constants.MemberType;
 @Entity
 @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class Member {
+public class Member extends Base {
 
     @Id @GeneratedValue
     private Long userNo;
