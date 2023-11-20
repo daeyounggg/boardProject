@@ -1,9 +1,13 @@
 package project.jpaex;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.transaction.annotation.Transactional;
 import project.commons.constants.MemberType;
 import project.entities.BoardData;
 import project.entities.Member;
@@ -12,6 +16,7 @@ import project.repositories.MemberRepository;
 
 @SpringBootTest
 @TestPropertySource(properties = "spring.profiles.active=test")
+@Transactional
 public class Ex01 {
     @Autowired
     private BoardDataRepository boardDataRepository;
@@ -19,7 +24,11 @@ public class Ex01 {
     @Autowired
     private MemberRepository memberRepository;
 
-    //@BeforeEach
+    @PersistenceContext
+    private EntityManager em;
+
+
+    @BeforeEach
     void init(){
         Member member = Member.builder()
                 .email("user01@test.org")
@@ -37,6 +46,7 @@ public class Ex01 {
                 .build();
 
         boardDataRepository.saveAndFlush(item);
+        em.clear();
     }
 
     @Test
