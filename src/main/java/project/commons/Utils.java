@@ -14,6 +14,8 @@ public class Utils {
     private static ResourceBundle validationsBundle;
     private static ResourceBundle errorsBundle;
 
+    private static ResourceBundle commonsBundle;
+
     private final HttpServletRequest request;
 
     private final HttpSession session;
@@ -21,11 +23,19 @@ public class Utils {
     static {
         validationsBundle = ResourceBundle.getBundle("messages.validations");
         errorsBundle = ResourceBundle.getBundle("messages.errors");
+        commonsBundle = ResourceBundle.getBundle("messages.commons");
     }
 
     public static String getMessage(String code, String bundleType) {
         bundleType = Objects.requireNonNullElse(bundleType, "validation");
-        ResourceBundle bundle = bundleType.equals("error") ? errorsBundle:validationsBundle;
+        ResourceBundle bundle = null;
+        if(bundleType.equals("commons")){
+            bundle = commonsBundle;
+        } else if (bundleType.equals("errors")) {
+            bundle = errorsBundle;
+        } else {
+            bundle = validationsBundle;
+        }
         try {
             return bundle.getString(code);
         } catch (Exception e) {
