@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 @RequiredArgsConstructor
 public class Utils {
     private static ResourceBundle validationsBundle;
+
     private static ResourceBundle errorsBundle;
 
     private static ResourceBundle commonsBundle;
@@ -29,13 +30,15 @@ public class Utils {
     public static String getMessage(String code, String bundleType) {
         bundleType = Objects.requireNonNullElse(bundleType, "validation");
         ResourceBundle bundle = null;
-        if(bundleType.equals("commons")){
+
+        if (bundleType.equals("common")) {
             bundle = commonsBundle;
-        } else if (bundleType.equals("errors")) {
+        } else if (bundleType.equals("error")) {
             bundle = errorsBundle;
         } else {
             bundle = validationsBundle;
         }
+
         try {
             return bundle.getString(code);
         } catch (Exception e) {
@@ -55,10 +58,11 @@ public class Utils {
     }
 
     public String tpl(String tplPath) {
-        return String.format("%s/" + tplPath, isMobile() ? "mobile" : "front");
+
+        return String.format("%s/" + tplPath, isMobile()?"mobile":"front");
     }
 
-    public static void loginInit(HttpSession session){
+    public static void loginInit(HttpSession session) {
         session.removeAttribute("email");
         session.removeAttribute("NotBlank_email");
         session.removeAttribute("NotBlank_password");
