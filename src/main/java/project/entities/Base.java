@@ -1,5 +1,6 @@
 package project.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 public abstract class Base {
     @Column(updatable = false)
     @CreatedDate
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 
     @Column(insertable = false)

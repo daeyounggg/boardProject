@@ -1,10 +1,9 @@
-package project;
+package project.commons;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import project.commons.Pagination;
 
 import java.util.List;
 

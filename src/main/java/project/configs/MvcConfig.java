@@ -12,7 +12,8 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import project.commons.interceptiors.CommonInterceptor;
+import project.commons.interceptors.CommonInterceptor;
+import project.commons.interceptors.SiteConfigInterceptor;
 
 @Configuration
 @EnableJpaAuditing @EnableScheduling
@@ -25,9 +26,15 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     private CommonInterceptor commonInterceptor;
 
+    @Autowired
+    private SiteConfigInterceptor siteConfigInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(commonInterceptor)
+                .addPathPatterns("/**");
+
+        registry.addInterceptor(siteConfigInterceptor)
                 .addPathPatterns("/**");
     }
 

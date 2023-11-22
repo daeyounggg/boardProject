@@ -1,4 +1,4 @@
-package project.commons.interceptiors;
+package project.commons.interceptors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

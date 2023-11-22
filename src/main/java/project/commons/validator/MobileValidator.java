@@ -1,4 +1,4 @@
-package project.validator;
+package project.commons.validator;
 
 public interface MobileValidator {
     default boolean mobileNumCheck(String mobile) {

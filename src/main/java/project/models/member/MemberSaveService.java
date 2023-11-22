@@ -5,8 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import project.commons.constants.MemberType;
-import project.controllers.RequestJoin;
 import project.controllers.members.JoinValidator;
+import project.controllers.members.RequestJoin;
 import project.entities.Member;
 import project.repositories.MemberRepository;
 

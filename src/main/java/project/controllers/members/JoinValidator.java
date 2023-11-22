@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import project.controllers.RequestJoin;
 import project.repositories.MemberRepository;
-import project.validator.MobileValidator;
-import project.validator.PasswordValidator;
+import project.commons.validator.MobileValidator;
+import project.commons.validator.PasswordValidator;
 
 /**
  * 회원 가입 추가 유효성 검사

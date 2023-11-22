@@ -1,4 +1,4 @@
-package project.controllers;
+package project.controllers.members;
 
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
