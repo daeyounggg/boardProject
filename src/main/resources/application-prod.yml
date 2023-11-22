@@ -2,6 +2,7 @@ server:
   port: 3000
 
 spring:
+
   # 데이터베이스 설정
   datasource:
     driverClassName: oracle.jdbc.driver.OracleDriver
@@ -13,13 +14,14 @@ spring:
   jpa:
     properties:
       hibernate:
-        # 실행되는 쿼리를 콘솔에 출력
+        # 실행되는 쿼리 콘솔 출력
         show_sql: true
+        # 콘솔 창에 출력되는 쿼리를 가독성 좋게 포매팅
         format_sql: true
         use_sql_comments: true
         dialect: org.hibernate.dialect.OracleDialect
     hibernate:
-      ddlAuto: create
+      ddlAuto: update
 
   # 파일 업로드 설정
   servlet:
@@ -28,14 +30,13 @@ spring:
       maxRequestSize: 40MB
 
   # 정적 자원 설정(CSS, JS, 이미지)
-  web:
-    resources:
-      staticLocations: file:src/main/resources/static/
+  resources:
+    staticLocations: file:src/main/resources/static/
 
   # 타임리프 설정
   thymeleaf:
     cache: true
-    prefix: classpath/templates/
+    prefix: classpath:/templates/
 
 file:
   upload:
