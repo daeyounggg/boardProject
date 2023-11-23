@@ -25,6 +25,7 @@ public class BoardConfigSaveService {
             board.setBId(bId);
     }
 
+        board.setBName(form.getBName());
         board.setActive(form.isActive());
         board.setAuthority(BoardAuthority.valueOf(form.getAuthority()));
         board.setCategory(form.getCategory());

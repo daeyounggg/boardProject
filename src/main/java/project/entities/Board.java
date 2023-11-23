@@ -17,7 +17,7 @@ public class Board extends BaseMember {
     private String bId;
 
     @Column(length=60, nullable = false)
-    private String nName;
+    private String bName;
 
     private boolean active;
 
