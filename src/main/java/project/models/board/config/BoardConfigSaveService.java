@@ -15,17 +15,17 @@ import java.util.Objects;
 public class BoardConfigSaveService {
     private final BoardRepository boardRepository;
 
-    public void save(BoardConfigForm form){
+    public void save(BoardConfigForm form) {
 
         String bId = form.getBId();
-        String mode = Objects.requireNonNullElse(form.getMode(),"add");
+        String mode = Objects.requireNonNullElse(form.getMode(), "add");
         Board board = null;
-        if(mode.equals("edit") && StringUtils.hasText(bId)) {
+        if (mode.equals("edit") && StringUtils.hasText(bId)) {
             board = boardRepository.findById(bId).orElseThrow(BoardNotFoundException::new);
-        } else{ // 추가
+        } else { // 추가
             board = new Board();
             board.setBId(bId);
-    }
+        }
 
         board.setBName(form.getBName());
         board.setActive(form.isActive());
@@ -33,6 +33,5 @@ public class BoardConfigSaveService {
         board.setCategory(form.getCategory());
 
         boardRepository.saveAndFlush(board);
-
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import project.commons.ScriptExceptionProcess;
 import project.commons.menus.Menu;
+import project.models.board.BoardSaveService;
 import project.models.board.config.BoardConfigSaveService;
 
 import java.util.Objects;
