@@ -8,6 +8,8 @@ import project.controllers.admins.BoardConfigForm;
 import project.entities.Board;
 import project.repositories.BoardRepository;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class BoardConfigSaveService {
@@ -16,7 +18,7 @@ public class BoardConfigSaveService {
     public void save(BoardConfigForm form){
 
         String bId = form.getBId();
-        String mode = form.getMode();
+        String mode = Objects.requireNonNullElse(form.getMode(),"add");
         Board board = null;
         if(mode.equals("edit") && StringUtils.hasText(bId)) {
             board = boardRepository.findById(bId).orElseThrow(BoardNotFoundException::new);
