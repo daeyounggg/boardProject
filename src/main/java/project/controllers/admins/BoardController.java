@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import project.commons.ListData;
 import project.commons.ScriptExceptionProcess;
+import project.commons.constants.BoardAuthority;
 import project.commons.menus.Menu;
 import project.entities.Board;
 import project.models.board.BoardSaveService;
@@ -77,7 +78,7 @@ public class BoardController implements ScriptExceptionProcess {
         model.addAttribute("menuCode", "board");
         model.addAttribute("submenus", Menu.gets("board"));
         model.addAttribute("subMenuCode", Menu.getSubMenuCode(request));
+
+        model.addAttribute("authorities", BoardAuthority.getList());
     }
-
-
 }
