@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 public class BoardForm {
 
-    private String mode;
+    private String mode = "write";
     private Long seq;
 
     private String bId;
