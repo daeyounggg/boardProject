@@ -12,10 +12,10 @@ import project.commons.ScriptExceptionProcess;
 import project.commons.constants.BoardAuthority;
 import project.commons.menus.Menu;
 import project.entities.Board;
-import project.models.board.BoardSaveService;
 import project.models.board.config.BoardConfigInfoService;
 import project.models.board.config.BoardConfigSaveService;
 
+import java.util.List;
 import java.util.Objects;
 
 @Controller("adminBoardController")
@@ -33,10 +33,20 @@ public class BoardController implements ScriptExceptionProcess {
 
         ListData<Board> data = infoService.getList(search);
 
-        model.addAttribute("items",data.getContent());
-        model.addAttribute("pagination",data.getPagination());
+        model.addAttribute("items", data.getContent());
+        model.addAttribute("pagination", data.getPagination());
 
         return "admin/board/list";
+    }
+
+    @PatchMapping
+    public String updateList(@RequestParam(name="idx", required = false) List<Integer> idxes, Model model) {
+
+
+        // 수정 완료시 부모창을 새로고침.
+        model.addAttribute("script", "parent.location.reload();");
+
+        return "common/_execute_script";
     }
 
     @GetMapping("/add")
@@ -47,7 +57,7 @@ public class BoardController implements ScriptExceptionProcess {
     }
 
     @GetMapping("/edit/{bId}")
-    public String update(@PathVariable String bId, Model model) {
+    public String update(@PathVariable("bId") String bId, Model model) {
         commonProcess("edit", model);
 
         return "admin/board/edit";
