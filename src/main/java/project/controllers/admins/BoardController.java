@@ -38,6 +38,7 @@ public class BoardController implements ScriptExceptionProcess {
         model.addAttribute("items", data.getContent());
         model.addAttribute("pagination", data.getPagination());
 
+
         return "admin/board/list";
     }
 

@@ -24,10 +24,14 @@ public class QBoardData extends EntityPathBase<BoardData> {
 
     public final QBase _super = new QBase(this);
 
+    public final QBoard board;
+
     public final StringPath content = createString("content");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final StringPath gid = createString("gid");
 
     public final QMember member;
 
@@ -58,6 +62,7 @@ public class QBoardData extends EntityPathBase<BoardData> {
 
     public QBoardData(Class<? extends BoardData> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.board = inits.isInitialized("board") ? new QBoard(forProperty("board")) : null;
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
     }
 
