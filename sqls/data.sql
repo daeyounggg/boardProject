@@ -1,0 +1,6 @@
+INSERT INTO MEMBER (USER_NO, EMAIL, PW, USER_NM, MTYPE, CREATED_AT)
+ VALUES (MEMBER_SEQ.nextval, 'user01@test.org',
+ 	'$2a$10$U4rhk1dLLdC4ObBB37/knejT07njJpKmnz3Upd7C6Fm0oOpDKXvNy',
+ 	'사용자01', 'USER', SYSDATE);
+
+COMMIT;
