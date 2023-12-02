@@ -38,7 +38,6 @@ public class BoardController implements ScriptExceptionProcess {
         model.addAttribute("items", data.getContent());
         model.addAttribute("pagination", data.getPagination());
 
-
         return "admin/board/list";
     }
 
@@ -47,6 +46,7 @@ public class BoardController implements ScriptExceptionProcess {
 
         saveService.update(idxes);
 
+
         // 수정 완료시 부모창을 새로고침.
         model.addAttribute("script", "parent.location.reload();");
 
@@ -54,12 +54,12 @@ public class BoardController implements ScriptExceptionProcess {
     }
 
     @DeleteMapping
-    public String deleteList(@RequestParam(name="idx", required = false) List<Integer> idxes, Model model){
+    public String deleteList(@RequestParam(name="idx", required = false) List<Integer> idxes, Model model) {
 
         deleteService.delete(idxes);
 
         // 삭제 성공시 부모창 새로고침
-        model.addAttribute("script","parent.location.reload();");
+        model.addAttribute("script", "parent.location.reload();");
         return "common/_execute_script";
     }
 
@@ -75,7 +75,7 @@ public class BoardController implements ScriptExceptionProcess {
         commonProcess("edit", model);
 
         BoardConfigForm form = infoService.getForm(bId);
-        model.addAttribute("boardConfigForm",form);
+        model.addAttribute("boardConfigForm", form);
 
         return "admin/board/edit";
     }

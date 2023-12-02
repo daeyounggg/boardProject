@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:fragment="common" th:object="${boardForm}">
     <input type="hidden" name="gid" th:field="*{gid}">
-    <div class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"> </div>
+    <div class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
 
     <dl>
         <dt th:text="#{제목}"></dt>
@@ -38,8 +38,20 @@
             <textarea name="content" id="content" th:field="*{content}"></textarea>
             <div class="error" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
 
-            <button type="button" th:text="#{이미지_추가}"></button>
+            <button type="button" th:text="#{이미지_추가}" class="upload_files" data-location="editor" data-image-only="true"></button>
+
+            <div class="uploaded_files" id="editor_files"></div>
         </dd>
     </dl>
+    <dl>
+        <dt th:text="#{파일첨부}"></dt>
+        <dd>
+            <button type="button" th:text="#{파일_업로드}" class="upload_files" data-location="attach"></button>
+
+            <div class="uploaded_files" id="attach_files"></div>
+        </dd>
+    </dl>
+    <script th:replace="~{common/_file_tpl::tpl_editor}"></script>
+    <script th:replace="~{common/_file_tpl::tpl_file}"></script>
 </th:block>
 </html>

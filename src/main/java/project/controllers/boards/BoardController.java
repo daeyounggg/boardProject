@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.internal.Errors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import project.commons.MemberUtil;
 import project.commons.ScriptExceptionProcess;
@@ -19,6 +20,7 @@ import project.models.board.config.BoardConfigInfoService;
 import project.models.board.config.BoardNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,7 +38,7 @@ public class BoardController implements ScriptExceptionProcess {
     public String write(@PathVariable("bId") String bId, @ModelAttribute  BoardForm form, Model model) {
         commonProcess(bId, "write", model);
 
-        if(memberUtil.isLogin()){
+        if (memberUtil.isLogin()) {
             form.setPoster(memberUtil.getMember().getUserNm());
         }
 
@@ -47,6 +49,7 @@ public class BoardController implements ScriptExceptionProcess {
 
     @GetMapping("/update/{seq}")
     public String update(@PathVariable("seq") Long seq, Model model) {
+
         return utils.tpl("board/update");
     }
 
@@ -83,7 +86,7 @@ public class BoardController implements ScriptExceptionProcess {
     }
 
     @GetMapping("/list/{bId}")
-    public String list(@PathVariable("bId") String bId, Model model){
+    public String list(@PathVariable("bId") String bId, Model model) {
 
         return utils.tpl("board/list");
     }
@@ -92,15 +95,26 @@ public class BoardController implements ScriptExceptionProcess {
 
         Board board = configInfoService.get(bId);
 
-        if(board == null || (!board.isActive() && !memberUtil.isAdmin())){ // 등록되지 않거나 또는 미사용 중 게시판
+        if (board == null || (!board.isActive() && !memberUtil.isAdmin())) { // 등록되지 않거나 또는 미사용 중 게시판
             throw new BoardNotFoundException();
         }
+
+        /* 게시판 분류 S */
+        String category = board.getCategory();
+        List<String> categories = StringUtils.hasText(category) ?
+            Arrays.stream(category.trim().split("\\n"))
+                    .map(s -> s.replaceAll("\\r",""))
+                    .toList() : null;
+
+        model.addAttribute("categories", categories);
+        /* 게시판 분류 E */
 
         String bName = board.getBName();
         String pageTitle = bName;
         if (mode.equals("write")) pageTitle = bName + " 작성";
         else if (mode.equals("update")) pageTitle = bName + " 수정";
         else if (mode.equals("view")) pageTitle = "게시글 제목";
+
 
         /* 글쓰기, 수정시 권한 체크 S */
         if (mode.equals("write") || mode.equals("update")) {

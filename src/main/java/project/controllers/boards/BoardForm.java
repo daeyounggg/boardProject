@@ -17,6 +17,8 @@ public class BoardForm {
 
     private String gid = UUID.randomUUID().toString();
 
+    private String category;
+
     @NotBlank(message="제목을 입력하세요.")
     private String subject;
 

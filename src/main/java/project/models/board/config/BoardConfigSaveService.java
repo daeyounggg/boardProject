@@ -63,5 +63,7 @@ public class BoardConfigSaveService {
             board.setActive(active);
             board.setAuthority(authority);
         }
+
+        boardRepository.flush();
     }
 }

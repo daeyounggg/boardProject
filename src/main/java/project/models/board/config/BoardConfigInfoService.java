@@ -28,10 +28,11 @@ import static org.springframework.data.domain.Sort.Order.desc;
 @Service
 @RequiredArgsConstructor
 public class BoardConfigInfoService {
+
     private final BoardRepository repository;
     private final HttpServletRequest request;
 
-    public Board get(String bId){
+    public Board get(String bId) {
         Board data = repository.findById(bId).orElseThrow(BoardNotFoundException::new);
 
         return data;
@@ -47,8 +48,7 @@ public class BoardConfigInfoService {
         return form;
     }
 
-    public ListData<Board> getList(BoardSearch search){
-
+    public ListData<Board> getList(BoardSearch search) {
         BooleanBuilder andBuilder = new BooleanBuilder();
 
         int page = Utils.getNumber(search.getPage(), 1);
@@ -57,19 +57,20 @@ public class BoardConfigInfoService {
         /* 검색 처리 S */
         QBoard board = QBoard.board;
         // 키워드 검색
-        String sopt = Objects.requireNonNullElse(search.getSopt(),"ALL");
+        String sopt = Objects.requireNonNullElse(search.getSopt(), "ALL");
         String skey = search.getSkey();
-        if(StringUtils.hasText(skey)){
+        if (StringUtils.hasText(skey)) {
             skey = skey.trim();
 
-            if(sopt.equals("bId")){ // 게시판 아이디
+            if (sopt.equals("bId")) { // 게시판 아이디
                 andBuilder.and(board.bId.contains(skey));
-            } else if(sopt.equals("bName")){ // 게시판 이름
+            } else if (sopt.equals("bName")) { // 게시판 이름
                 andBuilder.and(board.bName.contains(skey));
 
             } else { // 통합 검색
                 BooleanBuilder orBuilder = new BooleanBuilder();
-                orBuilder.or(board.bId.contains(skey)).or(board.bName.contains(skey));
+                orBuilder.or(board.bId.contains(skey))
+                        .or(board.bName.contains(skey));
 
                 andBuilder.and(orBuilder);
             }
@@ -77,22 +78,22 @@ public class BoardConfigInfoService {
 
         // 사용여부
         List<Boolean> active = search.getActive();
-        if(active != null && !active.isEmpty()){
+        if (active != null && !active.isEmpty()) {
             andBuilder.and(board.active.in(active));
         }
 
         // 글쓰기 권한
         List<BoardAuthority> authorities = search.getAuthority() == null ? null : search.getAuthority().stream().map(BoardAuthority::valueOf).toList();
 
-        if (authorities != null && !authorities.isEmpty()){
+        if (authorities != null && !authorities.isEmpty()) {
             andBuilder.and(board.authority.in(authorities));
         }
-
         /* 검색 처리 E */
 
         Pageable pageable = PageRequest.of(page - 1, limit, Sort.by(desc("createdAt")));
 
         Page<Board> data = repository.findAll(andBuilder, pageable);
+
 
         Pagination pagination = new Pagination(page, (int)data.getTotalElements(), 10, limit, request);
 

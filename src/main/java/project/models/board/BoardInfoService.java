@@ -11,7 +11,8 @@ public class BoardInfoService {
 
     private final BoardDataRepository boardDataRepository;
 
-    public BoardData get(Long seq){
+    public BoardData get(Long seq) {
+
         BoardData data = boardDataRepository.findById(seq).orElseThrow(BoardDataNotFoundException::new);
 
         return data;
