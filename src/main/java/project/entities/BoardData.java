@@ -14,6 +14,10 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(indexes = { @Index(name="idx_bd_data_list", columnList = "notice DESC, createdAt DESC"),
+        @Index(name="idx_bd_data_category", columnList = "category, notice DESC")
+})
+
 public class BoardData extends Base {
 
     @Id @GeneratedValue
@@ -30,8 +34,14 @@ public class BoardData extends Base {
     @JoinColumn(name="userNo")
     private Member member;
 
+    @Column(length=50)
+    private String category;
+
     @Column(length = 30, nullable = false)
     private String poster;
+
+    @Column(length = 65)
+    private String guestPw; // 비회원 비밀번호
 
     @Column(nullable = false)
     private String subject;
@@ -39,6 +49,8 @@ public class BoardData extends Base {
     @Lob
     @Column(nullable = false)
     private String content;
+
+    private boolean notice; // 공지사항 여부
 
     @Transient
     private List<FileInfo> editorImages;
