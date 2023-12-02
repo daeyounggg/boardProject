@@ -12,6 +12,7 @@ import project.commons.ScriptExceptionProcess;
 import project.commons.constants.BoardAuthority;
 import project.commons.menus.Menu;
 import project.entities.Board;
+import project.models.board.config.BoardConfigDeleteService;
 import project.models.board.config.BoardConfigInfoService;
 import project.models.board.config.BoardConfigSaveService;
 
@@ -26,6 +27,7 @@ public class BoardController implements ScriptExceptionProcess {
     private final HttpServletRequest request;
     private final BoardConfigSaveService saveService;
     private final BoardConfigInfoService infoService;
+    private final BoardConfigDeleteService deleteService;
 
     @GetMapping
     public String list(@ModelAttribute BoardSearch search, Model model) {
@@ -42,10 +44,21 @@ public class BoardController implements ScriptExceptionProcess {
     @PatchMapping
     public String updateList(@RequestParam(name="idx", required = false) List<Integer> idxes, Model model) {
 
+        saveService.update(idxes);
 
         // 수정 완료시 부모창을 새로고침.
         model.addAttribute("script", "parent.location.reload();");
 
+        return "common/_execute_script";
+    }
+
+    @DeleteMapping
+    public String deleteList(@RequestParam(name="idx", required = false) List<Integer> idxes, Model model){
+
+        deleteService.delete(idxes);
+
+        // 삭제 성공시 부모창 새로고침
+        model.addAttribute("script","parent.location.reload();");
         return "common/_execute_script";
     }
 
